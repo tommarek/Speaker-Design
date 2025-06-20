@@ -147,18 +147,62 @@ This guide provides detailed instructions for building a complete 3-way speaker 
 ### 5. Detailed Transmission Line Design
 
 #### Driver-to-Line Transition
-1. **Coupling Chamber**:
-   - **Volume**: 0.5-0.8L shared by both drivers
-   - **Shape**: Rectangular with rounded corners
-   - **Transition**: Smooth taper from chamber to line entrance
-   - **No sharp edges** - all transitions radiused
 
-2. **Entry Geometry**:
-   - **From drivers**: 54 cm² combined Sd
-   - **Chamber width**: 80mm (accommodates both drivers)
-   - **Chamber height**: 100mm
-   - **Transition length**: 50-80mm
-   - **Taper angle**: 15-20° maximum
+**Optimized Design**: Direct funnel transition from drivers to transmission line - no coupling chamber needed. This provides the smoothest possible airflow and best acoustic performance.
+
+1. **Driver Mounting Configuration**:
+   - **Both drivers fire forward** (out of the cabinet)
+   - **Rear of drivers** open directly into funnel
+   - **No sealed box** - drivers directly coupled to TL
+   - **Spacing**: 150mm center-to-center vertically
+
+2. **Funnel Geometry**:
+   - **Start**: Encompasses both driver openings
+   - **Shape**: 3D compound curve (oval to rectangular)
+   - **Length**: 80-100mm for smooth transition
+   - **No parallel surfaces** - continuous taper
+
+3. **Transition Profile**:
+   ```
+   REAR VIEW (looking at driver backs):
+   
+   ╭─────╮  Driver 1 (74mm diameter)
+   │  ○  │
+   ╰──┬──╯
+      │    Smooth 3D funnel
+   ╭──┴──╮ (no steps or chambers)
+   │  ○  │
+   ╰─────╯  Driver 2 (74mm diameter)
+      ↓
+   Merges to single rectangular opening
+   ```
+
+4. **Funnel Dimensions**:
+   - **Entry**: Oval encompassing both drivers
+     - Width: 90mm (clears both baskets)
+     - Height: 225mm (spans both drivers)
+     - Area: ~120 cm² at widest
+   - **Exit**: 60 × 97mm rectangular (59.4 cm²)
+   - **Profile**: Continuous 3D curve
+   - **Length**: 80-100mm
+
+5. **3D Printed Advantages**:
+   ```
+   TOP VIEW of funnel:
+   
+   Drivers side:  ○═══○  (two circles)
+                    ╲ ╱
+                     ╳    Smooth blend
+                    ╱ ╲
+   TL side:      [═════]  (rectangle)
+   ```
+
+6. **Why Direct Funnel is Better**:
+   - **No turbulence**: Continuous smooth transition
+   - **Better coupling**: Direct path minimizes reflections  
+   - **Lower distortion**: No cavity resonances
+   - **Easier to print**: Single smooth part
+   - **More efficient**: Every mm³ guides airflow
 
 #### Progressive Tapering Design
 1. **Cross-Section Progression**:
@@ -204,27 +248,86 @@ This guide provides detailed instructions for building a complete 3-way speaker 
 
 #### Internal Structure with Rounded Transitions
 
-##### Optimized Folding Pattern
+##### Complete System Layout
 ```
-[Driver 1] ══╗╲___    
-             ╱     ╲  Smooth coupling chamber
-[Driver 2] ══╝      ╲
-                     ╲___
-                         ╲___  Segment 1 (390mm)
-                             ╲
-                          ___╱ R30mm turn
-                      ___╱     
-                  ___╱     Segment 2 (390mm)  
-              ___╱
-          ___╱ R30mm turn
-      ___╱
-  ___╱     Segment 3 (390mm)
- ╱
-╱___  R30mm turn
-    ╲___
-        ╲___  Segment 4 (390mm)
-            ╲___
-                ╲___╱ [Flared Port Exit]
+FRONT VIEW:                    SIDE CUTAWAY VIEW:
+                              
+┌─────────────┐               ┌─────────────────────────┐
+│      ○      │ Tweeter       │ [T] │ Sealed chamber    │
+│─────────────│               │─────┼───────────────────│
+│      ○      │ Midrange      │ [M] │ Sealed/ported     │
+│─────────────│               │─────┼───────────────────│
+│             │               │     │                   │
+│      ○      │ Sub 1    ──>  │ [S1]│╲                 │
+│             │               │     │ ╲ 3D Funnel      │
+│      ○      │ Sub 2    ──>  │ [S2]│ ╱ Transition     │
+│             │               │     │╱                 │
+│─────────────│               │     ├──────────────────│
+│  ┌───────┐  │ Port          │     │ Transmission Line │
+│  │       │  │               │     │    (folded)       │
+│  └───────┘  │               │     │                   │
+└─────────────┘               └─────┴───────────────────┘
+```
+
+##### Driver-to-TL Funnel Detail
+```
+               3D FUNNEL TRANSITION (Multiple Views):
+                 
+   REAR VIEW:              SIDE SECTION:           TOP VIEW:
+   
+   ╭─────╮                Driver│ Funnel │TL       ○───────○
+   │  ○  │ Driver 1         ═══╪════════╪═>        ╲     ╱
+   ╰──┬──╯                     │╲      ╱│           ╲   ╱
+      │                        │ ╲    ╱ │            ╲ ╱
+      │ Smooth                 │  ╲  ╱  │             ╳
+      │ funnel                 │   ╲╱   │            ╱ ╲
+      │                        │   ╱╲   │           ╱   ╲
+   ╭──┴──╮                     │  ╱  ╲  │          ╱     ╲
+   │  ○  │ Driver 2         ═══╪╱      ╲╪═>       [═══════]
+   ╰─────╯                Driver│ 100mm  │TL      Rectangle
+   
+   Total height: 225mm         No steps or         Smooth blend
+   Width: 90mm                 chambers            from circles
+                                                   to rectangle
+```
+
+##### Funnel Mathematics
+```
+Cross-sectional area progression through funnel:
+
+Position    Area (cm²)    Shape Description
+0mm         ~120          Oval encompassing both drivers
+25mm        ~95           Transitioning oval
+50mm        ~75           Becoming rectangular
+75mm        ~65           Nearly rectangular
+100mm       59.4          Perfect rectangle (60×97mm)
+```
+
+##### Optimized Folding Pattern with Funnel
+```
+[Driver 1] ══╗
+             ║╲___    
+             ║    ╲___  3D Funnel
+             ║        ╲___ (100mm)
+[Driver 2] ══╣           ╲___
+             ║               ╲___
+             ╚═══════════════════╲  Segment 1 (390mm)
+                                  ╲
+                               ___╱ R30mm turn
+                           ___╱     
+                       ___╱     Segment 2 (390mm)  
+                   ___╱
+               ___╱ R30mm turn
+           ___╱
+       ___╱     Segment 3 (390mm)
+      ╱
+     ╱___  R30mm turn
+         ╲___
+             ╲___  Segment 4 (390mm)
+                 ╲___
+                     ╲___╱ [Flared Port Exit]
+
+Total line length: 1560mm (after funnel)
 ```
 
 #### Stuffing Strategy
@@ -550,34 +653,5 @@ In a front-facing transmission line, the sound from the port emerges approximate
 3. **Sealing**: Fills all 3D print imperfections
 4. **Tunability**: Thickness can be varied
 5. **Cost Effective**: Cheaper than commercial damping
-
-## Final Notes
-
-### Break-In Period
-- Run 20-30 hours at moderate level
-- Use bass-heavy material
-- Re-measure after break-in
-- Fine-tune if needed
-
-### Placement Tips
-- Keep 10cm from walls minimum
-- Port at ear level or below
-- Experiment with toe-in
-- Use spikes or isolation feet
-
-### Maintenance
-- Check driver mounting annually
-- Inspect gaskets for air leaks
-- Keep port clear of obstructions
-- Re-tighten screws if needed
-
-## Safety Warnings
-- Wear eye protection when cutting MDF
-- Use dust mask for MDF dust
-- Ensure adequate ventilation
-- Support heavy panels during assembly
-- Never exceed driver power ratings
-
----
 
 This design prioritizes tight, controlled bass response ideal for music reproduction. The front-facing configuration minimizes room interaction while the progressive taper and tuning methodology ensure optimal transient response.
