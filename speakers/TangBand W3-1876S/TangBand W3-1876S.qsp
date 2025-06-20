@@ -1,0 +1,22 @@
+<!DOCTYPE QSpeakersProject>
+ <project>
+ <speaker 
+  vendor="Tang Band"
+  model="W3-1876S"
+  vc="1"
+  fs="55.0"
+  qts="0.43"
+  vas="0.88"
+  dia="0.059"
+  z="4"
+  sd="0.0027"
+  re="3.6"
+  le="0.19"
+  xmax="5.0"
+  qms="3.17"
+  qes="0.5"
+  spl="76.9"
+  pe="30"
+  bl="5.28"
+ />
+</project>

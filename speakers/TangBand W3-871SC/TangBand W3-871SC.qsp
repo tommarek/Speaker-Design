@@ -1,0 +1,22 @@
+<!DOCTYPE QSpeakersProject>
+ <project>
+ <speaker 
+  vendor="Tang Band"
+  model="W3-871SC"
+  vc="1"
+  fs="110.0"
+  qts="0.59"
+  vas="1.65"
+  dia="0.064"
+  z="8"
+  sd="0.0032"
+  re="6.6"
+  le="0.75"
+  xmax="0.5"
+  qms="3.4"
+  qes="0.71"
+  spl="86.0"
+  pe="25"
+  bl="3.51"
+ />
+</project>
