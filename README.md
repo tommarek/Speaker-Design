@@ -116,7 +116,7 @@ The folded labyrinth path allows us to pack nearly 2 meters of acoustic length i
 
 Selecting the optimal tuning frequency requires balancing several factors:
 
-Given our driver's free-air resonance **Fs ≈ 55 Hz**, the traditional guideline suggests tuning between 0.7×Fs and 0.85×Fs. We've chosen **0.75×Fs = 42 Hz** because:
+Given our driver's free-air resonance **Fs ≈ 55 Hz**, the traditional guideline suggests tuning between 0.7×Fs and 0.85×Fs. We've chosen **0.76×Fs = 42 Hz** because:
 
 1. **Excursion control** — At this tuning, the line's acoustic load minimizes cone movement near resonance
 2. **Transient response** — Not too low (sluggish) nor too high (inadequate extension)
@@ -130,8 +130,8 @@ Let's work through the complete calculation step by step:
 
 $$
 \begin{aligned}
-L_{\text{acoustic}} &= \frac{343}{4 \times 42} \;\approx\; 2.04\;\text{m}\\[6pt]
-L_{\text{physical}} &= \mathbf{1.98\;\text{m}}
+L_{\text{acoustic}} &= \frac{c}{4 F_b} = \frac{343}{4 \times 42} \;\approx\; 2.04\;\text{m}\\[6pt]
+L_{\text{physical}} &= DR \times L_{\text{acoustic}} = 0.87 \times 2.04 \;\approx\; \mathbf{1.77\;\text{m}}
 \end{aligned}
 $$  
 
@@ -141,7 +141,10 @@ Breaking this down:
 - **L_acoustic** is the effective acoustic length needed for 42 Hz tuning
 - **L_physical** is the actual constructed line length
 
-The difference between acoustic and physical length (2.04 - 1.98 = 0.06 m) represents the effective lengthening due to end effects. For our 133 × 15 mm slot, the theoretical end correction would be approximately 9 mm (0.6 × height). The larger 60 mm difference suggests additional factors such as the coupling chamber at the driver end and internal losses are affecting the tuning.
+**Resistance Factor (DR):** Following King's alignment tables (see THEORY.md), for a 2:1 taper ratio (TR = 0.5), the resistance factor DR = 0.87. This accounts for the velocity reduction due to taper and damping:
+- **Acoustic length** is the theoretical quarter-wavelength
+- **Physical length** is shorter due to the taper's acoustic loading effect
+- The 1.77 m physical length is what we actually build
 
 ### 3.4 Taper cross-sections S₀ → S<sub>ℓ</sub><a id="34-taper"></a>  
 
@@ -190,7 +193,7 @@ $$
 
 **Total line volume:**
 $$
-V = L_{\text{TL}}\!\times\!S_{\text{avg}} = 1.98 \times 0.0030 \;\approx\; 0.00594\;\text{m}^3 = 5.94\;\text{L}
+V = L_{\text{physical}}\!\times\!S_{\text{avg}} = 1.77 \times 0.0030 \;\approx\; 0.00531\;\text{m}^3 = 5.31\;\text{L}
 $$  
 
 **Wool mass calculation:**
@@ -204,13 +207,13 @@ $$
 
 | Line Segment | Density (g/L) | Mass | Purpose |
 |--------------|---------------|------|----------|
-| Entry third (0-0.66 m) | 4 | 10 g | Prevents midrange leakage |
-| **Center third (0.66-1.32 m)** | **10** | **20 g** | Kills 1st/2nd harmonic ripple |
-| Exit third (1.32-1.98 m) | 0 | 0 g | Preserves bass output |
+| Entry third (0-0.59 m) | 5 | 10 g | Prevents midrange leakage |
+| **Center third (0.59-1.18 m)** | **10** | **20 g** | Kills 1st/2nd harmonic ripple |
+| Exit third (1.18-1.77 m) | 0 | 0 g | Preserves bass output |
 
 The wool should be long-fiber polyester (not cotton or rock wool) teased evenly throughout the line length. Avoid clumping near the throat or exit.
 
-*Note: If bass feels overly tight or rolled off after assembly, reduce stuffing by 5-10% in the center third. The 5.1 kg/m³ average density is on the higher side of typical TL damping.*
+*Note: If bass feels overly tight or rolled off after assembly, reduce stuffing by 5-10% in the center third. The 5.6 kg/m³ average density provides good damping without over-restriction. This graduated stuffing approach follows Bailey's original non-resonant design principle.*
 
 ### 3.6 Rectangular-slot vent sizing<a id="36-vent"></a>  
 
@@ -233,12 +236,12 @@ The slot area is optimized for typical listening levels. At extreme SPLs above 9
 
 ### 3.7 Folded layout for a 250 mm printer<a id="37-folded"></a>  
 
-Fitting 1.98 meters of tapered transmission line into a 250 mm cube requires clever geometry. The folded design uses a series of straight segments connected by 180° bends:
+Fitting 1.77 meters of tapered transmission line into a 250 mm cube requires clever geometry. The folded design uses a series of straight segments connected by 180° bends:
 
 | Parameter | Value | Design Rationale |
 |-----------|-------|------------------|
 | Number of segments | **4** | Compact layout with minimal bends |
-| Segment length | **~50 cm each** | Even distribution of total length |
+| Segment length | **~44 cm each** | Even distribution of total length |
 | Total height | **~35 cm** | Stacked configuration fits printer |
 | Fold radius | **3-4 cm** | Smooth airflow through bends |
 | Cross-section | Square | Simple to model and print |
@@ -286,7 +289,7 @@ For those with more space, here's a larger implementation with improved performa
 | Exit S<sub>ℓ</sub> | 20 cm² | **25 cm²** (3:1 contraction) |
 | Exit slot | 133 × 15 mm | **100 × 25 mm** (easier to print) |
 | Line volume | 5.9 L | **10 L** |
-| Wool mass | 30 g @ 5.1 kg m⁻³ | **25 g @ 2.5 kg m⁻³** |
+| Wool mass | 30 g @ 5.6 kg m⁻³ | **25 g @ 2.5 kg m⁻³** |
 | Vent velocity @ 95 dB | 24 m/s | **19 m/s** (quieter than compact) |
 | Bass extension | 42 Hz (-3 dB) | **40 Hz (-3 dB)** |
 
@@ -302,16 +305,16 @@ $$
 
 Where:
 - V_max = maximum available enclosure volume
-- L = calculated line length (1.98 m for 42 Hz)
+- L = physical line length (1.77 m for 42 Hz)
 - TR = taper ratio (use 2 for gentle taper, up to 4 for aggressive)
 
 Always verify that your calculated S<sub>0</sub> falls within the 0.8–1.5 × ΣS<sub>d</sub> window for proper driver coupling.
 
-**Example:** For V_max = 10 L, L = 1.98 m, and TR = 2:
+**Example:** For V_max = 10 L, L = 1.77 m, and TR = 2:
 $$
-S_{0} = \frac{2 \times 0.010}{1.98} \times \frac{2}{1 + 2} = 0.0067\;\text{m}^2 = 67\;\text{cm}^2
+S_{0} = \frac{2 \times 0.010}{1.77} \times \frac{2}{1 + 2} = 0.0075\;\text{m}^2 = 75\;\text{cm}^2
 $$
-This would be 1.34 × ΣSd (67/50), which falls within the acceptable range.
+This would be 1.50 × ΣSd (75/50), which falls within the acceptable range.
 
 ---
 
